@@ -9,11 +9,12 @@ public class MouseTrackerPlugin: NSObject, FlutterPlugin {
   }
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-    switch call.method {
-    case "getPlatformVersion":
-      result("macOS " + ProcessInfo.processInfo.operatingSystemVersionString)
-    default:
+    if call.method == "getMousePosition" {
+      let mouseLocation = NSEvent.mouseLocation
+      result(["x": mouseLocation.x, "y": mouseLocation.y])
+    } else {
       result(FlutterMethodNotImplemented)
     }
   }
 }
+
